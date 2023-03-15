@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from "axios";
+import { useState } from 'react';
+
+const p = axios.get("https://www.boredapi.com/api/activity");
 
 function App() {
+
+  const [activity, setActivity] = useState("");
+  const [parti, setParti] = useState(1);
+
+  p.then(response => {
+    setActivity(response.data.activity);
+    setParti(response.data.participants);
+  })
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{ activity }</h1>
+      <p>Number of People: {parti}</p>
     </div>
   );
 }
